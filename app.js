@@ -36,5 +36,5 @@ require("./database/db");
 
 app.listen(PORT, async() => {
   console.log(`Server is running on port ${PORT} using ${ENV} env.`);
-    await sequelize.sync({force:true})
+    // await sequelize.sync({force:true})
 });
