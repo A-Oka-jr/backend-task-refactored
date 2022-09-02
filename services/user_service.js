@@ -6,7 +6,6 @@ const {
 const db = require("../database/db");
 const models = require("../models");
 const User = models.users;
-const fs = require("fs");
 
 exports.getAllUsers = async () => {
   return userDao.getAllUsers();

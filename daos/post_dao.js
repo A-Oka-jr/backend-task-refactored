@@ -1,23 +1,24 @@
-
 const models = require("../models");
-const {Post,users} = models;
+const { Post, users } = models;
 
 exports.getAllPosts = async () => {
-  const result = await Post.findAll({include:[{model:users,as:'user'}]});
+  const query = {
+    include: [{ model: users, as: "user" }],
+  };
+  const result = await Post.findAll(query);
   return result;
 };
 
-
 exports.newPost = async (params) => {
-  const {
-    userUuid,
-    body,
-  } = params;
+  const { userUuid, body } = params;
+  const query = {
+    where: { uuid: userUuid },
+  };
+  const user = await users.findOne(query);
 
-  const user = await users.findOne({ where: { uuid: userUuid } })
   const result = await Post.create({
     body,
-    userId:user.id,
+    userId: user.id,
   });
   return result;
 };

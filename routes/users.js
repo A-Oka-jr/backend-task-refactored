@@ -1,6 +1,6 @@
 const express = require("express");
 const db = require("../database/db");
-const userController = require("../controllers/userController");
+const userController = require("../controllers/user_controller");
 const router = express.Router();
 const multer = require('multer');
 
@@ -28,10 +28,10 @@ const upload = multer({
     fileFilter:fileFilter
 })
 // Get all users
-router.get("/", userController.get_All);
-router.post("/", upload.single('personal_image'), userController.new_user);
-router.get("/:userId", userController.get_user);
-router.put("/:userId",upload.single('personal_image'), userController.update_user);
-router.delete("/:userId", userController.delete_user);
+router.get("/", userController.getAllUsers);
+router.post("/", upload.single('personal_image'), userController.newUser);
+router.get("/:userId", userController.getOneUser);
+router.put("/:userId",upload.single('personal_image'), userController.updateUser);
+router.delete("/:userId", userController.deleteUser);
 
 module.exports = router;

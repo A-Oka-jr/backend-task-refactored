@@ -9,79 +9,38 @@ exports.getAllUsers = async () => {
 
 exports.getUser = async (params) => {
   const { userId } = params;
-    const result = await User.findOne({
-      where: {
-        id: userId,
-      },
-    });
+  const query = {
+    where: {
+      id: userId,
+    },
+  };
+    const result = await User.findOne(query);
     return result
 };
 
 exports.deleteUser = async (params) => {
-    const { userId } = params;
-    const result = await User.findOne({
-      where: {
-        id: userId,
-      },
-    });
+  const { userId } = params;
+  const query = {
+    where: {
+      id:userId
+    }
+  }
+    const result = await User.findOne(query);
     await result.destroy();
     return { message: "user deleted" };
 };
 
 exports.newUser = async (params) => {
-  const {
-    personal_image,
-    full_name,
-    address,
-    gender,
-    mobile,
-    email,
-    jop,
-    salary,
-  } = params;
-    const result = await User.create({
-      personal_image,
-      full_name,
-      address,
-      gender,
-      mobile,
-      email,
-      jop,
-      salary,
-    });
+    const result = await User.create(params);
     return result
 };
 
 exports.updateUser = async (params) => {
-  const {
-    userId,
-    personal_image,
-    full_name,
-    address,
-    gender,
-    mobile,
-    email,
-    jop,
-    salary,
-  } = params;
-    const result = await User.update(
-      {
-        userId,
-        personal_image,
-        full_name,
-        address,
-        gender,
-        mobile,
-        email,
-        jop,
-        salary,
-      },
-      {
-        where: {
-          id: userId,
-        },
-      }
-    );
+  const query = {
+    where: {
+      id: params.userId,
+    },
+  };
+    const result = await User.update(params,query);
     return {message:"user updated"}
 };
-
